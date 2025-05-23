@@ -3,6 +3,8 @@
 import { useState } from "react";
 import Image from "next/image";
 import { TrashIcon, ArrowUpTrayIcon } from "@heroicons/react/24/outline";
+import { ref, uploadBytes, listAll, deleteObject } from "firebase/storage";
+import { storage } from "../lib/firebase";
 
 const AdminGalleryTabs = () => {
   const [activeTab, setActiveTab] = useState("residential");
@@ -29,14 +31,7 @@ const AdminGalleryTabs = () => {
     ],
   });
 
-  const handleDelete = (tab: string, id: number) => {
-    setGalleryImages((prev) => ({
-      ...prev,
-      [tab]: prev[tab as keyof typeof prev].filter((img) => img.id !== id),
-    }));
-  };
-
-  const handleUpload = (
+  const handleUpload = async (
     e: React.ChangeEvent<HTMLInputElement>,
     tab: string
   ) => {
@@ -45,20 +40,43 @@ const AdminGalleryTabs = () => {
 
     setUploading(true);
 
-    // In a real app, you would upload to your backend or storage service here
-    // For now, we'll just simulate an upload
-    setTimeout(() => {
-      const newImages = Array.from(files).map((file, i) => ({
-        id: Date.now() + i,
-        url: URL.createObjectURL(file),
-      }));
+    try {
+      const uploadPromises = Array.from(files).map(async (file) => {
+        const storageRef = ref(storage, `gallery/${tab}/${file.name}`);
+        await uploadBytes(storageRef, file);
 
+        // In a real app, you would store this reference in your database
+        return {
+          id: file.name,
+          url: `gallery/${tab}/${file.name}`,
+        };
+      });
+
+      const newImages = await Promise.all(uploadPromises);
       setGalleryImages((prev) => ({
         ...prev,
         [tab]: [...prev[tab as keyof typeof prev], ...newImages],
       }));
+    } catch (error) {
+      console.error("Error uploading images:", error);
+    } finally {
       setUploading(false);
-    }, 1000);
+    }
+  };
+
+  // Update the handleDelete function
+  const handleDelete = async (tab: string, id: string) => {
+    try {
+      const imageRef = ref(storage, id);
+      await deleteObject(imageRef);
+
+      setGalleryImages((prev) => ({
+        ...prev,
+        [tab]: prev[tab as keyof typeof prev].filter((img) => img.id !== id),
+      }));
+    } catch (error) {
+      console.error("Error deleting image:", error);
+    }
   };
 
   return (
