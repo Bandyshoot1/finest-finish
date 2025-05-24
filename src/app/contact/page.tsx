@@ -1,8 +1,8 @@
-"use client";
+'use client'
 
-import { useForm } from 'react-hook-form';
-import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { motion } from 'framer-motion'
 
 interface ContactFormData {
   name: string
@@ -65,7 +65,7 @@ const ContactPage = () => {
                 </div>
                 <div>
                   <h3 className="font-semibold">Email</h3>
-                  <p className="text-gray-300">info@sparkleclean.com</p>
+                  <p className="text-gray-300">info@finestfinish.com</p>
                 </div>
               </div>
 
