@@ -8,7 +8,7 @@ import AuthProviders from "../components/AuthProviders";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "SparkleClean | Professional Cleaning Services",
+  title: "Finest Finish | Professional Cleaning Services",
   description:
     "Premium cleaning services for residential and commercial properties",
 };

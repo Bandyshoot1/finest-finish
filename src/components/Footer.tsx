@@ -10,7 +10,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
             <h3 className="text-2xl font-bold mb-4">
-              Sparkle<span className="text-lighter">Clean</span>
+              Finest<span className="text-lighter">Finish</span>
             </h3>
             <p className="text-gray-300">
               Professional cleaning services for residential and commercial
@@ -110,13 +110,13 @@ const Footer = () => {
                 <FaLinkedin size={20} />
               </a>
             </div>
-            <p className="text-gray-300">Email: info@sparkleclean.com</p>
+            <p className="text-gray-300">Email: info@finestfinish.com</p>
             <p className="text-gray-300">Phone: (123) 456-7890</p>
           </div>
         </div>
 
         <div className="border-t border-primary/30 mt-8 pt-8 text-center text-gray-400">
-          <p>&copy; {currentYear} SparkleClean. All rights reserved.</p>
+          <p>&copy; {currentYear} Finest Finish. All rights reserved.</p>
         </div>
       </div>
     </footer>
