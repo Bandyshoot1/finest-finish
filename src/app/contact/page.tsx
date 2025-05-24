@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { motion } from 'framer-motion'
+import { motion } from 'framer-motion/dist/framer-motion'
 
 interface ContactFormData {
   name: string
