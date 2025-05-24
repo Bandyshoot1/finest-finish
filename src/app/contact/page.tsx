@@ -2,9 +2,9 @@
 
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { motion } from 'framer-motion/dist/framer-motion'
+import { motion } from '@/lib/motion'
 
-interface ContactFormData {
+type ContactFormData = {
   name: string
   email: string
   phone: string
@@ -12,14 +12,18 @@ interface ContactFormData {
   message: string
 }
 
-const ContactPage = () => {
-  const { register, handleSubmit, formState: { errors } } = useForm<ContactFormData>()
+export default function ContactPage() {
+  const { 
+    register, 
+    handleSubmit, 
+    formState: { errors } 
+  } = useForm<ContactFormData>()
+  
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitSuccess, setSubmitSuccess] = useState(false)
 
   const onSubmit = async (data: ContactFormData) => {
     setIsSubmitting(true)
-    // In a real app, you would send this data to your backend
     console.log('Form submitted:', data)
     await new Promise(resolve => setTimeout(resolve, 1500))
     setIsSubmitting(false)
@@ -27,7 +31,7 @@ const ContactPage = () => {
   }
 
   return (
-    <section className="py-20">
+    <div className="py-20">
       <div className="container mx-auto px-4">
         <h1 className="text-4xl md:text-5xl font-bold mb-12 text-center">
           Contact <span className="text-lighter">Us</span>
@@ -189,8 +193,6 @@ const ContactPage = () => {
           </motion.div>
         </div>
       </div>
-    </section>
+    </div>
   )
 }
-
-export default ContactPage
