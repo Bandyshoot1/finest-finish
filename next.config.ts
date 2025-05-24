@@ -1,7 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    esmExternals: "loose", // Add this line
+  output: "export", // For static export to Netlify
+  images: {
+    unoptimized: true, // Required for static export
   },
 };
 
