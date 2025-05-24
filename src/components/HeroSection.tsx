@@ -1,53 +1,121 @@
 "use client";
 
-import { motion } from "framer-motion";
-import Link from "next/link";
+import { useState, useEffect } from "react";
+import { ReactTyped } from "react-typed";
 
 const HeroSection = () => {
+  const [currentWord, setCurrentWord] = useState("");
+  const [isFinalWord, setIsFinalWord] = useState(false);
+
+  const handleStringTyped = (arrayPos: number) => {
+    const words = [
+      "Residential",
+      "Construction",
+      "Business",
+      "Vacation/AirBNB",
+    ];
+    setCurrentWord(words[arrayPos]);
+    setIsFinalWord(arrayPos === words.length - 1);
+  };
+
+  const handlePreStringTyped = (arrayPos: number) => {
+    const words = [
+      "Residential",
+      "Construction",
+      "Business",
+      "Vacation/AirBNB",
+    ];
+    setCurrentWord(words[arrayPos]);
+  };
+
+  useEffect(() => {
+    if (isFinalWord) {
+      const restartAnimation = document.querySelector(".typed-loop-animation");
+      restartAnimation?.classList.add("animate-pulse");
+      setTimeout(() => {
+        restartAnimation?.classList.remove("animate-pulse");
+      }, 1000);
+    }
+  }, [isFinalWord]);
+
   return (
-    <section className="relative h-screen flex items-center justify-center text-center px-4">
-      <div className="absolute inset-0 bg-primary/20 z-0" />
-      <div className="absolute inset-0 bg-gradient-to-t from-darker to-transparent z-0" />
-
-      <div className="relative z-10 max-w-4xl mx-auto">
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-4xl md:text-6xl font-bold mb-6"
-        >
-          <span className="text-white">Professional </span>
-          <span className="text-lighter">Cleaning Services</span>
-        </motion.h1>
-
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="text-xl text-gray-300 mb-8"
-        >
-          We provide top-quality cleaning services for homes and businesses,
-          leaving your space sparkling clean and fresh.
-        </motion.p>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="flex flex-col sm:flex-row justify-center gap-4"
-        >
-          <Link href="/services" className="btn-primary px-8 py-3 text-lg">
-            Our Services
-          </Link>
-          <Link
-            href="/contact"
-            className="bg-white text-primary px-8 py-3 text-lg font-semibold rounded-full hover:bg-gray-100 transition"
-          >
-            Get a Quote
-          </Link>
-        </motion.div>
+    <div className="text-lighter px-4">
+      <div className="max-w-[800px] w-full h-screen mx-auto text-center flex flex-col justify-center">
+        <div className="bg-primary/30 rounded-2xl backdrop-blur-sm p-6">
+          <p className="text-cyan-300 font-bold p-2 text-3xl">
+            Your clean home awaits
+          </p>
+          <h1 className="md:text-5xl sm:text-4xl text-3xl font-bold md:py-6">
+            Schedule a free quote today!
+          </h1>
+          <div>
+            <p className="md:text-4xl sm:text-3xl text-xl font-bold">
+              Fast, Quality & Flexible Cleaning & Organization for
+            </p>
+            <ReactTyped
+              className="md:text-4xl sm:text-3xl text-xl font-bold pl-2 text-cyan-300 typed-loop-animation"
+              strings={[
+                "Residential",
+                "Construction",
+                "Business",
+                "Vacation/AirBNB",
+              ]}
+              typeSpeed={70}
+              backSpeed={40}
+              loop
+              onStringTyped={handleStringTyped}
+              preStringTyped={handlePreStringTyped}
+            />
+          </div>
+          <p className="md:text-2xl text-xl font-bold text-lighter">
+            Enjoy the clean organized space in your{" "}
+            <span
+              className={`${
+                currentWord === "Residential"
+                  ? "text-cyan-300 transition duration-500 ease-in-out scale-110 inline-block"
+                  : ""
+              }`}
+            >
+              Residential Home
+            </span>
+            ,{" "}
+            <span
+              className={`${
+                currentWord === "Construction"
+                  ? "text-cyan-300 transition duration-500 ease-in-out scale-110 inline-block"
+                  : ""
+              }`}
+            >
+              Construction
+            </span>
+            ,{" "}
+            <span
+              className={`${
+                currentWord === "Business"
+                  ? "text-cyan-300 transition duration-500 ease-in-out scale-110 inline-block"
+                  : ""
+              }`}
+            >
+              Business
+            </span>
+            ,{" "}
+            <span
+              className={`${
+                currentWord === "Vacation/AirBNB"
+                  ? "text-cyan-300 transition duration-500 ease-in-out scale-110 inline-block"
+                  : ""
+              }`}
+            >
+              Vacation/AirBNB
+            </span>
+            .
+          </p>
+          <button className="bg-lighter w-[200px] rounded-2xl font-medium my-6 mx-auto py-3 text-primary outline outline-1 hover:bg-lighter/90 transition">
+            Get started
+          </button>
+        </div>
       </div>
-    </section>
+    </div>
   );
 };
 

@@ -19,3 +19,33 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+@layer components {
+  /* Add these new styles */
+  .shake {
+    animation: shake 0.5s;
+  }
+
+  @keyframes shake {
+    0% {
+      transform: translateX(0);
+    }
+    25% {
+      transform: translateX(-5px);
+    }
+    50% {
+      transform: translateX(5px);
+    }
+    75% {
+      transform: translateX(-5px);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+
+  /* Update the btn-primary class to match your design */
+  .btn-primary {
+    @apply bg-lighter text-primary font-bold py-3 px-6 rounded-2xl outline outline-1 hover:bg-lighter/90 transition;
+  }
+}

@@ -9,6 +9,9 @@ const config: Config = {
         lighter: "#690099",
         dark: "#430035",
         darker: "#1f0029",
+        cyan: {
+          300: "#67e8f9", // Your cyan accent color
+        },
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
